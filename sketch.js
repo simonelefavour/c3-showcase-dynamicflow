@@ -107,13 +107,18 @@ class Star {
 }
 
 function mousePressed() {
-    if (!bgMusic.isPlaying()) {
+  // Needed for Safari and Chrome audio restrictions
+  getAudioContext().resume().then(() => {
+    if (bgMusic && !bgMusic.isPlaying()) {
       bgMusic.play();
     }
-    for (let i = 0; i < 10; i++) {
-      stars.push(new Star());
-    }
+  });
+
+  for (let i = 0; i < 10; i++) {
+    stars.push(new Star());
   }
+}
+
   
 function keyPressed() {
   if (key === ' ') {
